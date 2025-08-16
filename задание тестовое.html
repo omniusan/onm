@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ тестового задания Evature</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0f0f15;
+            --bg-card: #1a1a25;
+            --bg-hover: #252536;
+            --primary: #8a2be2;
+            --primary-variant: #5a1a9c;
+            --secondary: #00c896;
+            --accent: #ff6b6b;
+            --on-primary: #ffffff;
+            --on-background: #e0e0e0;
+            --surface: #121218;
+            --error: #ff5252;
+            --text-primary: rgba(255, 255, 255, 0.92);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        header {
+            background: rgba(26, 26, 37, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1.2rem 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.2);
+            padding-bottom: 1rem;
+        }
+
+        .tab-button {
+            background: rgba(138, 43, 226, 0.1);
+            color: var(--text-secondary);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .tab-button:hover {
+            background: rgba(138, 43, 226, 0.2);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(90deg, var(--primary), var(--primary-variant));
+            color: var(--on-primary);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(138, 43, 226, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--box-shadow-hover);
+            border-color: rgba(138, 43, 226, 0.3);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        h2 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h2 i {
+            font-size: 1.4rem;
+        }
+
+        h3 {
+            color: var(--primary);
+            margin: 1.8rem 0 1.2rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        ul, ol {
+            margin-left: 1.8rem;
+            margin-bottom: 1.3rem;
+        }
+
+        li {
+            margin-bottom: 0.7rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: var(--bg-hover);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        th, td {
+            padding: 1.1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        th {
+            background: linear-gradient(90deg, var(--primary-variant), var(--primary));
+            color: var(--on-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: rgba(138, 43, 226, 0.15);
+        }
+
+        .download-btn, .link-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: linear-gradient(90deg, var(--primary), var(--primary-variant));
+            color: var(--on-primary);
+            padding: 0.85rem 1.7rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            margin-top: 1.2rem;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            font-size: 0.95rem;
+        }
+
+        .download-btn:hover, .link-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
+        }
+
+        .link-button {
+            background: linear-gradient(90deg, var(--secondary), #00a87e);
+            box-shadow: 0 4px 15px rgba(0, 200, 150, 0.3);
+        }
+
+        .link-button:hover {
+            box-shadow: 0 6px 20px rgba(0, 200, 150, 0.5);
+        }
+
+        .section {
+            margin-bottom: 2.2rem;
+        }
+
+        .competitor-card {
+            background: rgba(37, 37, 54, 0.6);
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin-bottom: 1.8rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            transition: var(--transition);
+        }
+
+        .competitor-card:hover {
+            background: rgba(37, 37, 54, 0.8);
+            transform: translateX(5px);
+        }
+
+        .competitor-card h4 {
+            color: var(--secondary);
+            margin-bottom: 0.7rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.02);
+        }
+
+        .product-info {
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .product-title:hover {
+            color: var(--on-primary);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-link {
+            display: block;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: var(--on-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: background 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .product-link:hover {
+            background: var(--primary-variant);
+        }
+
+        .why-appealing {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        .why-appealing li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .why-appealing li::before {
+            content: "✓";
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .two-column-layout {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .left-column {
+            flex: 1;
+        }
+
+        .right-column {
+            flex: 1.5;
+        }
+
+        .comparison-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 2rem 0;
+        }
+
+        .competitor-left, .competitor-right {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+        }
+
+        .main-product {
+            flex: 1.2;
+            min-width: 300px;
+            max-width: 400px;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid var(--primary);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.2);
+        }
+
+        .main-product h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .vs-indicator {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .strategy-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .strategy-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: rgba(37, 37, 54, 0.6);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(5px);
+            background: rgba(37, 37, 54, 0.8);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.3rem;
+            top: 1.5rem;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--secondary);
+            border: 3px solid var(--bg-card);
+            box-shadow: 0 0 0 3px rgba(0, 200, 150, 0.3);
+        }
+
+        .timeline-item h4 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .timeline-item ul {
+            margin-left: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .timeline-item li {
+            margin-bottom: 0.6rem;
+            color: var(--text-secondary);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(138, 43, 226, 0.1), rgba(0, 200, 150, 0.1));
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .highlight h4 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        footer {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .task-divider {
+            border-top: 1px solid rgba(138, 43, 226, 0.3);
+            margin: 4rem 0;
+            position: relative;
+        }
+
+        .task-divider::after {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .two-column-layout {
+                flex-direction: column;
+            }
+            
+            .left-column, .right-column {
+                width: 100%;
+            }
+            
+            .comparison-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.25rem;
+            }
+            
+            ul, ol {
+                margin-left: 1.3rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-chart-line"></i> Анализ тестового задания Evature</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" data-tab="task1">Задача №1</button>
+            <button class="tab-button" data-tab="task2">Задача №2</button>
+            <button class="tab-button" data-tab="task3">Задача №3</button>
+            <button class="tab-button" data-tab="task4">Задача №4</button>
+            <button class="tab-button" data-tab="task5">Задача №5</button>
+        </div>
+
+        <!-- Задача №1 -->
+        <div id="task1" class="tab-content active">
+            <div class="card">
+                <h2><i class="fas fa-balance-scale"></i> Задача №1: Сравнительный анализ</h2>
+                
+                <div class="comparison-section">
+                    <div class="competitor-left competitor-card">
+                        <h4><i class="fas fa-store"></i> Артикул 113968252 (INICIO)</h4>
+                        <div class="two-column-layout">
+                            <div class="left-column">
+                                <img src="https://basket-08.wbbasket.ru/vol1139/part113968/113968252/images/c246x328/4.webp" alt="Женские летние брюки палаццо в рубчик на резинке" class="product-image">
+                            </div>
+                            <div class="right-column">
+                                <div class="product-info">
+                                    <h4>Женские летние брюки палаццо в рубчик на резинке</h4>
+                                    <p><strong>Состав:</strong> 80% полиэстер, 20% вискоза</p>
+                                    <p><strong>Цвета:</strong> леопардовый, коричневый, бежевый</p>
+                                    <p><strong>Особенности:</strong> летняя коллекция, трендовый образ</p>
+                                    <a href="https://www.wildberries.ru/catalog/113968252/detail.aspx" target="_blank" class="link-button"><i class="fas fa-external-link-alt"></i> Перейти к товару</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="main-product">
+                        <h3><i class="fas fa-star"></i> Основной товар: 381127338 (EVATURE)</h3>
+                        <img src="https://basket-22.wbbasket.ru/vol3811/part381127/381127338/images/c246x328/4.webp" alt="Женские летние брюки леопардового принта на резинке" class="product-image">
+                        <div class="product-info">
+                            <h4>Женские летние брюки леопардового принта на резинке</h4>
+                            <p><strong>Состав:</strong> 70% полиэстер, 27% вискоза, 3% эластан</p>
+                            <p><strong>Цвета:</strong> черный, белый, серый, леопардовый</p>
+                            <p><strong>Особенности:</strong> летняя модель, свободный крой, эластичная резинка</p>
+                            <a href="https://www.wildberries.ru/catalog/381127338/detail.aspx" target="_blank" class="link-button"><i class="fas fa-external-link-alt"></i> Перейти к товару</a>
+                        </div>
+                    </div>
+                    
+                    <div class="competitor-right competitor-card">
+                        <h4><i class="fas fa-store"></i> Артикул 363151880 (AINISA MODE)</h4>
+                        <div class="two-column-layout">
+                            <div class="left-column">
+                                <img src="https://basket-21.wbbasket.ru/vol3631/part363151/363151880/images/c246x328/1.webp" alt="Брюки палаццо лапша леопардового принта" class="product-image">
+                            </div>
+                            <div class="right-column">
+                                <div class="product-info">
+                                    <h4>Брюки палаццо лапша леопардового принта</h4>
+                                    <p><strong>Состав:</strong> 52% вискоза, 35% полиэстер, 10% хлопок, 3% спандекс</p>
+                                    <p><strong>Цвета:</strong> бежевый, леопардовый</p>
+                                    <p><strong>Особенности:</strong> летняя модель, повседневный образ</p>
+                                    <a href="https://www.wildberries.ru/catalog/363151880/detail.aspx" target="_blank" class="link-button"><i class="fas fa-external-link-alt"></i> Перейти к товару</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3><i class="fas fa-table"></i> Ключевые показатели сравнения (данные из Excel):</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Параметр</th>
+                                <th>Наша карточка (381127338)</th>
+                                <th>Конкурент 1 (113968252)</th>
+                                <th>Конкурент 2 (363151880)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Общая выручка за 30 дней</td>
+                                <td>63,777 ₽</td>
+                                <td>5,079,680 ₽</td>
+                                <td>661,921.00 ₽</td>
+                            </tr>
+                            <tr>
+                                <td>Общее количество продаж (шт.)</td>
+                                <td>83</td>
+                                <td>3,339</td>
+                                <td>971</td>
+                            </tr>
+                            <tr>
+                                <td>Наличие (всего)</td>
+                                <td>118</td>
+                                <td>2526</td>
+                                <td>101</td>
+                            </tr>
+                            <tr>
+                                <td>Наличие (Коледино)</td>
+                                <td>46</td>
+                                <td>235</td>
+                                <td>19</td>
+                            </tr>
+                            <tr>
+                                <td>Наличие (Электросталь)</td>
+                                <td>28</td>
+                                <td>936</td>
+                                <td>26</td>
+                            </tr>
+                            <tr>
+                                <td>Наличие (Краснодар)</td>
+                                <td>22</td>
+                                <td>383</td>
+                                <td>30</td>
+                            </tr>
+                            <tr>
+                                <td>Наличие (Рязанская обл.)</td>
+                                <td>7</td>
+                                <td>95</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Слабые стороны товара 381127338:</h3>
+                    <ul>
+                        <li><strong>Низкие продажи:</strong> 83 штуки за 30 дней против 3,339 у конкурента 1</li>
+                        <li><strong>Низкая выручка:</strong> 63,777 ₽ против 5,079,680 ₽ у конкурента 1</li>
+                        <li>Низкое содержание натуральных материалов (только 27% вискозы) по сравнению с AINISA MODE (52% вискозы + 10% хлопка)</li>
+                        <li>Отсутствие информации о деталях фасона (например, "в рубчик" у INICIO)</li>
+                        <li>Отсутствие информации о преимуществах материала (дышащая ткань, комфорт и т.д.)</li>
+                        <li>Возможно, недостаточно профессиональные фотографии</li>
+                        <li>Менее специфическое описание, не выделяющее уникальные особенности</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-lightbulb"></i> Рекомендации по улучшению:</h3>
+                    <ul>
+                        <li>Добавить информацию о преимуществах материала (лёгкость, дышащая структура)</li>
+                        <li>Увеличить долю натуральных волокон в составе для повышения конкурентоспособности</li>
+                        <li>Добавить детальное описание фасона и особенностей кроя</li>
+                        <li>Расширить линейку цветов, добавив трендовые оттенки</li>
+                        <li>Улучшить визуальное оформление карточки товара (профессиональные фото в разных ракурсах)</li>
+                        <li>Увеличить количество товара на складах для обеспечения бесперебойных продаж</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Задача №2 -->
+        <div id="task2" class="tab-content">
+            <div class="card">
+                <h2><i class="fas fa-bullhorn"></i> Задача №2: Продвижение</h2>
+                <div class="section">
+                    <h3><i class="fas fa-rocket"></i> Стратегия продвижения для артикула 381127338</h3>
+                    <p>Для повышения эффективности продвижения товара необходимо реализовать комплексную стратегию, охватывающую все этапы взаимодействия с покупателем - от привлечения внимания до формирования лояльности.</p>
+                    
+                    <div class="highlight">
+                        <h4><i class="fas fa-lightbulb"></i> Ключевая идея</h4>
+                        <p>Создать эмоциональную связь с покупателем через визуальное оформление, уникальные преимущества и персонализированный подход, подчеркивая универсальность и комфорт брюк как идеального решения для летнего гардероба.</p>
+                    </div>
+
+                    <div class="strategy-timeline">
+                        <div class="timeline-item">
+                            <h4><i class="fas fa-camera"></i> Оптимизация карточки товара</h4>
+                            <ul>
+                                <li>Добавить минимум 7-8 качественных фото: общий вид, детали ткани, пояс на резинке, посадка, различные цвета, образы с товаром</li>
+                                <li>Создать короткое видео (15-30 сек), демонстрирующее динамику брюк при движении</li>
+                                <li>Переписать описание, выделив преимущества:
+                                    <ul>
+                                        <li>"Лёгкая дышащая ткань идеально подходит для летнего сезона"</li>
+                                        <li>"Эластичная резинка обеспечивает комфортную посадку без стягивания"</li>
+                                        <li>"Универсальный фасон палаццо в сочетании с леопардовым принтом создаст яркий образ"</li>
+                                        <li>"4 варианта цветов позволяют подобрать брюки под любой гардероб"</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4><i class="fas fa-search"></i> Работа с ключевыми запросами</h4>
+                            <ul>
+                                <li>Добавить в заголовок и описание ключевые слова: "женские летние брюки палаццо", "брюки леопардовый принт", "брюки на резинке", "женские брюки больших размеров"</li>
+                                <li>Создать мини-контент в описании: "Как стильно сочетать брюки палаццо летом"</li>
+                                <li>Использовать длинные ключевые фразы для уточнения поиска</li>
+                                <li>Оптимизировать теги и атрибуты товара</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4><i class="fas fa-tags"></i> Ценовая политика и акции</h4>
+                            <ul>
+                                <li>Ввести специальное предложение: "Купить комплект (брюки + топ) со скидкой 15%"</li>
+                                <li>Участвовать в сезонных распродажах Wildberries (летняя коллекция)</li>
+                                <li>Создать ограниченную серию с эксклюзивным принтом</li>
+                                <li>Внедрить программу лояльности для постоянных клиентов</li>
+                                <li>Предложить ранний доступ к новым коллекциям</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4><i class="fas fa-comments"></i> Продвижение через отзывы</h4>
+                            <ul>
+                                <li>Запустить акцию: "Оставьте отзыв с фото и получите купон на следующую покупку"</li>
+                                <li>Активно отвечать на все отзывы, особенно на негативные</li>
+                                <li>Предложить постоянным покупателям скидку за повторную покупку</li>
+                                <li>Создать галерею отзывов с фотографиями покупателей</li>
+                                <li>Поощрять пользовательский контент хэштегами</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4><i class="fas fa-ad"></i> Рекламные кампании</h4>
+                            <ul>
+                                <li>Запустить таргетированную рекламу в Instagram и VK с акцентом на летний сезон</li>
+                                <li>Сотрудничать с микроблогерами в нише женской одежды</li>
+                                <li>Создать коллекцию "Летний образ 2023" с участием данного товара</li>
+                                <li>Использовать ремаркетинг для возврата пользователей</li>
+                                <li>Запустить email-рассылки с персональными предложениями</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4><i class="fas fa-chart-pie"></i> Конкурентный анализ и позиционирование</h4>
+                            <ul>
+                                <li>Сделать акцент на универсальности (4 цвета против 2-3 у конкурентов)</li>
+                                <li>Подчеркнуть сочетание практичности (полиэстер) и комфорта (вискоза)</li>
+                                <li>Создать сравнительную таблицу преимуществ перед конкурентами</li>
+                                <li>Проводить регулярный мониторинг цен конкурентов</li>
+                                <li>Анализировать отзывы покупателей о товарах конкурентов</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Задача №3 -->
+        <div id="task3" class="tab-content">
+            <div class="card">
+                <h2><i class="fas fa-eye"></i> Задача №3: Насмотренность</h2>
+                <div class="section">
+                    <h3><i class="fas fa-star"></i> Примеры артикулов с привлекательными карточками</h3>
+                    <div class="competitor-card">
+                        <div class="two-column-layout">
+                            <div class="left-column">
+                                <img src="https://basket-22.wbbasket.ru/vol3840/part384041/384041932/images/c246x328/1.webp" alt="Платье на лямках голубой JoDemi" class="product-image">
+                            </div>
+                            <div class="right-column">
+                                <div class="product-info">
+                                    <h4 class="product-title">Платье на лямках голубой JoDemi</h4>
+                                    <div class="why-appealing">
+                                        <p><strong>Почему привлекательно:</strong></p>
+                                        <ul>
+                                            <li>Очень привлекает внимание дополнительный яркий розовый цвет (цветы, туфли и стакан). Тем самым акцентирует внимание на платье, выдвигая его на передний план.</li>
+                                        </ul>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem;">
+                                        <div class="product-price">1 482 ₽</div>
+                                        <a href="https://www.wildberries.ru/catalog/384041932/detail.aspx" target="_blank" class="link-button"><i class="fas fa-external-link-alt"></i> Перейти</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="two-column-layout">
+                            <div class="left-column">
+                                <img src="https://basket-13.wbbasket.ru/vol2039/part203934/203934980/images/c246x328/1.webp" alt="Платье летнее короткое Kova-lova" class="product-image">
+                            </div>
+                            <div class="right-column">
+                                <div class="product-info">
+                                    <h4 class="product-title">Платье летнее короткое Kova-lova</h4>
+                                    <div class="why-appealing">
+                                        <p><strong>Почему привлекательно:</strong></p>
+                                        <ul>
+                                            <li>Данная карточка цепляет "жизнью", живыми эмоциями, нежностью, легкостью и движениями. Тем самым вызывает ощущение легкого летнего платья.</li>
+                                        </ul>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem;">
+                                        <div class="product-price">1 557 ₽</div>
+                                        <a href="https://www.wildberries.ru/catalog/203934980/detail.aspx" target="_blank" class="link-button"><i class="fas fa-external-link-alt"></i> Перейти</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="two-column-layout">
+                            <div class="left-column">
+                                <img src="https://basket-22.wbbasket.ru/vol3917/part391763/391763451/images/c246x328/1.webp" alt="Платье праздничное с открытыми плечами L'anima" class="product-image">
+                            </div>
+                            <div class="right-column">
+                                <div class="product-info">
+                                    <h4 class="product-title">Платье праздничное с открытыми плечами L'anima</h4>
+                                    <div class="why-appealing">
+                                        <p><strong>Почему привлекательно:</strong></p>
+                                        <ul>
+                                            <li>Данная карточка привлекает внимание минимализмом, моделью в полный рост и отличным сочетанием белого фона с небольшой текстовой плажкой.</li>
+                                        </ul>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem;">
+                                        <div class="product-price">2 626 ₽</div>
+                                        <a href="https://www.wildberries.ru/catalog/391763451/detail.aspx" target="_blank" class="link-button"><i class="fas fa-external-link-alt"></i> Перейти</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="two-column-layout">
+                            <div class="left-column">
+                                <img src="https://basket-22.wbbasket.ru/vol3809/part380983/380983339/images/c246x328/1.webp" alt="Платье праздничное с открытыми плечами L'anima" class="product-image">
+                            </div>
+                            <div class="right-column">
+                                <div class="product-info">
+                                    <h4 class="product-title">Интернет-магазин Wildberries</h4>
+                                    <div class="why-appealing">
+                                        <p><strong>Почему привлекательно:</strong></p>
+                                        <ul>
+                                            <li>Игра теней и затемненная задняя арка, очень выделяют платье на передний план и делают карточку визульно цепляющую взгляд среди рядом стоящих карточек.</li>
+                                        </ul>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem;">
+                                        <div class="product-price">скидки каждый день!</div>
+                                        <a href="https://www.wildberries.ru/catalog/391763451/detail.aspx" target="_blank" class="link-button"><i class="fas fa-external-link-alt"></i> Перейти</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-check-circle"></i> Общие элементы успешных карточек:</h3>
+                    <ul>
+                        <li>Наличие профессиональных фотографий (минимум 7-10)</li>
+                        <li>Видеообзор или анимированные GIF</li>
+                        <li>Четкое структурирование информации</li>
+                        <li>Акцент на преимуществах, а не только на характеристиках</li>
+                        <li>Социальное доказательство (отзывы с фото)</li>
+                        <li>Сравнение с конкурентами</li>
+                        <li>Инфографика вместо сплошного текста</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Задача №4 -->
+        <div id="task4" class="tab-content">
+            <div class="card">
+                <h2><i class="fas fa-users"></i> Задача №4: Оценка роли в команде по методике М. Белбина</h2>
+                <div class="section">
+                    <h3><i class="fas fa-hands-helping"></i> I. Чем я могу помочь команде:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Варианты ответов</th>
+                                <th>Пометки</th>
+                                <th>Баллы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Я думаю, что могу быстро выявлять и использовать новые возможности.</td>
+                                <td>A</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Я могу успешно работать с различными типами людей.</td>
+                                <td>B</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Разработка идей является моим естественным достоинством.</td>
+                                <td>C</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Я обладаю способностью находить в других людях такие качества, которые могут быть полезны для всей группы.</td>
+                                <td>D</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Моя способность доводить дело до завершения во многом определяет мою личную эффективность.</td>
+                                <td>E</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я готов смириться с временной непопулярностью, если это положительно повлияет на результаты выступления команды.</td>
+                                <td>F</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я готов забыть про вежливость, если надо настоять на точке зрения, которую считаю правильной.</td>
+                                <td>G</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я быстро понимаю, что надо делать в хорошо знакомой мне ситуации.</td>
+                                <td>H</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Я могу предложить набор разумных вариантов действий без предубеждений и пристрастий.</td>
+                                <td>I</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-user-edit"></i> II. Если с точки зрения командной работы у меня есть недостатки, то:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Варианты ответов</th>
+                                <th>Пометки</th>
+                                <th>Баллы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Я не успокоюсь до тех пор, пока не пойму, что рабочие встречи команды хорошо организованы, подготовлены и проводятся правильно.</td>
+                                <td>A</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Я благосклонен к людям, выдвигающим оригинальные, но неприемлемые идеи.</td>
+                                <td>B</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Я обычно молчу, пока команда не начнет обсуждать предмет, в котором я хорошо разбираюсь.</td>
+                                <td>C</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я страдаю многословием, когда группа обсуждает новые идеи.</td>
+                                <td>D</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Моя страсть возражать по любому поводу мешает мне присоединяться к моим коллегам.</td>
+                                <td>E</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я иногда кажусь человеком авторитарным, стремящимся повлиять на других людей.</td>
+                                <td>F</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Мне трудно проявить инициативу, потому что я поддаюсь настроению, которое установилось в группе.</td>
+                                <td>G</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я углубляюсь в свои размышления до такой степени, что теряю контроль над тем, что происходит.</td>
+                                <td>H</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Мои коллеги считают, что я слишком волнуюсь из-за мелочей и опасений, что дела могут пойти не так как надо</td>
+                                <td>I</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-project-diagram"></i> III. Когда я работаю над проектом вместе с другими людьми:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Варианты ответов</th>
+                                <th>Пометки</th>
+                                <th>Баллы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Я могу влиять на коллег без давления на них.</td>
+                                <td>A</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Моя врожденная осмотрительность позволяет мне предотвращать небрежности, ошибки и упущения.</td>
+                                <td>B</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Я готов требовать от коллег четкости, чтобы время не уходило впустую, и участники совещания не отклонялись от главной темы.</td>
+                                <td>C</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Меня можно признать человеком, способным придумать что-то оригинальное.</td>
+                                <td>D</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Я всегда готов поддерживать предложение, полезное для команды.</td>
+                                <td>E</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я интересуюсь новейшими идеями и разработками.</td>
+                                <td>F</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>Я стремлюсь показать мой профессионализм.</td>
+                                <td>G</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я думаю, что моя способность к холодному расчету находит поддержку у других людей.</td>
+                                <td>H</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>На меня можно положиться при организации важной работы.</td>
+                                <td>I</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-handshake"></i> IV. Мое отношение к командной работе проявляется в том, что:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Варианты ответов</th>
+                                <th>Пометки</th>
+                                <th>Баллы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Я стремлюсь знать своих коллег.</td>
+                                <td>A</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я вношу свой вклад лишь в том случае, когда уверен в своих знаниях по обсуждаемому вопросу</td>
+                                <td>B</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я неохотно обмениваюсь знаниями с другими людьми, и свое особое мнение держу при себе.</td>
+                                <td>C</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я нахожу убедительные аргументы при необходимости отвергнуть пустые предложения.</td>
+                                <td>D</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Я думаю, что у меня есть талант организатора планомерной работы.</td>
+                                <td>E</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я склонен отвергать очевидное и предлагать неожиданное.</td>
+                                <td>F</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Я проявляю высокую требовательность к себе при выполнении командной роли, которую на меня возлагают.</td>
+                                <td>G</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Я готов использовать опыт людей за пределами команды.</td>
+                                <td>H</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Я интересуюсь различными точками зрения, но принятое решение выполняю без колебаний.</td>
+                                <td>I</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-smile-beam"></i> V. Я получаю удовлетворение от работы, потому что:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Варианты ответов</th>
+                                <th>Пометки</th>
+                                <th>Баллы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Мне нравится анализировать сложные ситуации и взвешивать всевозможные варианты.</td>
+                                <td>A</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <td>Мне интересно находить решения различных проблем.</td>
+                                <td>B</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Мне нравится осознавать, что я стимулирую хорошие рабочие взаимоотношения.</td>
+                                <td>C</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я оказываю существенное влияние на процесс принятия решений.</td>
+                                <td>D</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я умею находить людей, которые умеют находить что-нибудь новое</td>
+                                <td>E</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я способен убедить людей в необходимости тех или иных действий.</td>
+                                <td>F</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я чувствую, когда мне необходимо полностью сосредоточиться на поставленной задаче.</td>
+                                <td>G</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я люблю деятельность, которая развивает мое воображение.</td>
+                                <td>H</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я могу использовать мои профессиональные знания и опыт.</td>
+                                <td>I</td>
+                                <td>4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-bolt"></i> VI. Если мне с группой незнакомых людей неожиданно поручат трудную задачу, которую надо выполнить быстро:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Варианты ответов</th>
+                                <th>Пометки</th>
+                                <th>Баллы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Я постараюсь получить исчерпывающую информацию по этой задаче.</td>
+                                <td>A</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я предпочел бы уединиться и хорошо обдумать ситуацию, прежде чем, разработать план действий.</td>
+                                <td>B</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я готов работать с человеком, который проявил позитивный подход к делу, каким бы трудным этот человек не казался.</td>
+                                <td>C</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Я бы разделил общую задачу на ряд мелких и у становил бы, какой вклад в решение задачи могут внести конкретные члены команды.</td>
+                                <td>D</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Моя врожденная обязательность помогает мне контролировать сроки выполнения задания.</td>
+                                <td>E</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я способен сохранять невозмутимость и думать по существу.</td>
+                                <td>F</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я могу следовать к намеченной цели, несмотря ни на какое давление.</td>
+                                <td>G</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Я готов взять на себя роль ведущего, если чувствую, что группа не продвигается в решении задачи.</td>
+                                <td>H</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я начну дискуссию, чтобы стимулировать коллег на новые мысли и привести группу в движение.</td>
+                                <td>I</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-road"></i> VII. Проблемы, которые я должен преодолеть, работая в группе:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Варианты ответов</th>
+                                <th>Пометки</th>
+                                <th>Баллы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Я склонен к раздражительности по отношению к тем, кто мешает группе добиваться цели.</td>
+                                <td>A</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Я могу вызвать критику со стороны моих коллег из-за моего увлечения анализом проблем и недостаточно развитой интуиции.</td>
+                                <td>B</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Мое стремление задать правильный ход работе может привести к задержке выполнения задачи.</td>
+                                <td>C</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я быстро теряю интерес к делу и надеюсь на кого-нибудь из команды, кто заменит меня.</td>
+                                <td>D</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Мне трудно начать работу, пока я полностью не пойму цели этой работы.</td>
+                                <td>E</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Мне не всегда удается объяснить сложные идеи, которые рождает мой разум.</td>
+                                <td>F</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Я осознаю необходимость поручать другим членам команды сделать то, что сам сделать не могу.</td>
+                                <td>G</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Меня часто преследует мысль, что мы зря теряем время, и что я гораздо лучше бы справился с задачей один.</td>
+                                <td>H</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Я становлюсь нерешительным, когда сталкиваюсь с сильным сопротивлением.</td>
+                                <td>I</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Задача №5 -->
+        <div id="task5" class="tab-content">
+            <div class="card">
+                <h2><i class="fas fa-database"></i> Задача №5: Обработка массива данных</h2>
+                <div class="section">
+                    <h3><i class="fas fa-list"></i> 1. Список категорий и количество товаров (SKU)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Категория</th>
+                                <th>Количество SKU</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Электроника/Кабели и зарядные устройства/Зарядное устройство</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/ТВ, Аудио, Фото, Видео техника/Кабель</td>
+                                <td>8</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Смартфоны и телефоны/Аксессуары для смартфонов</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Ноутбуки и компьютеры/Аксессуары для ноутбуков/Переходник</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/ТВ, Аудио, Фото, Видео техника/Наушники и гарнитуры/Наушники</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Кабели и зарядные устройства/Внешний аккумулятор</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Смартфоны и телефоны/Планшеты/Аксессуары для планшетов</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-chart-bar"></i> 2. Упущенная выручка и выручка по категориям</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Категория</th>
+                                <th>Выручка</th>
+                                <th>Упущенная выручка</th>
+                                <th>Упущенная выручка %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Электроника/Кабели и зарядные устройства/Зарядное устройство</td>
+                                <td>2,971,172</td>
+                                <td>1,127,554</td>
+                                <td>27.5%</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/ТВ, Аудио, Фото, Видео техника/Кабель</td>
+                                <td>1,435,300</td>
+                                <td>574,120</td>
+                                <td>28.6%</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Смартфоны и телефоны/Аксессуары для смартфонов</td>
+                                <td>878,983</td>
+                                <td>351,593</td>
+                                <td>28.6%</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Ноутбуки и компьютеры/Аксессуары для ноутбуков/Переходник</td>
+                                <td>16,744</td>
+                                <td>0</td>
+                                <td>0%</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/ТВ, Аудио, Фото, Видео техника/Наушники и гарнитуры/Наушники</td>
+                                <td>69,246</td>
+                                <td>0</td>
+                                <td>0%</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Кабели и зарядные устройства/Внешний аккумулятор</td>
+                                <td>14,353</td>
+                                <td>0</td>
+                                <td>0%</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Смартфоны и телефоны/Планшеты/Аксессуары для планшетов</td>
+                                <td>12,713</td>
+                                <td>0</td>
+                                <td>0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-star-half-alt"></i> 3. Средний дробный рейтинг по категориям</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Категория</th>
+                                <th>Средний рейтинг</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Электроника/Кабели и зарядные устройства/Зарядное устройство</td>
+                                <td>4.56</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/ТВ, Аудио, Фото, Видео техника/Кабель</td>
+                                <td>2.82</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Смартфоны и телефоны/Аксессуары для смартфонов</td>
+                                <td>1.74</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Ноутбуки и компьютеры/Аксессуары для ноутбуков/Переходник</td>
+                                <td>4.37</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/ТВ, Аудио, Фото, Видео техника/Наушники и гарнитуры/Наушники</td>
+                                <td>0.33</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Кабели и зарядные устройства/Внешний аккумулятор</td>
+                                <td>1.43</td>
+                            </tr>
+                            <tr>
+                                <td>Электроника/Смартфоны и телефоны/Планшеты/Аксессуары для планшетов</td>
+                                <td>1.03</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-trophy"></i> 4. Минимальное и максимальное значение выручки</h3>
+                    <ul>
+                        <li><strong>Максимальная выручка:</strong> 2,971,172 руб. (категория "Электроника/Кабели и зарядные устройства/Зарядное устройство")</li>
+                        <li><strong>Минимальная выручка:</strong> 12,713 руб. (категория "Электроника/Смартфоны и телефоны/Планшеты/Аксессуары для планшетов")</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h3><i class="fas fa-brain"></i> Выводы по анализу данных:</h3>
+                    <ol>
+                        <li>Наиболее прибыльная категория - зарядные устройства, но при этом у нее высокая упущенная выручка (27.5%)</li>
+                        <li>Категория кабелей имеет второй показатель выручки, но также высокую упущенную выручку</li>
+                        <li>Наушники имеют низкий рейтинг (0.33), что может быть связано с низким спросом или качеством товара</li>
+                        <li>Для увеличения продаж рекомендуется сосредоточиться на категориях с высокой упущенной выручкой и средним рейтингом</li>
+                        <li>Необходимо провести анализ причин низкого рейтинга в категориях с низкими показателями</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p><i class="fas fa-copyright"></i> Анализ тестового задания Evature &copy; Александр Панин</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
